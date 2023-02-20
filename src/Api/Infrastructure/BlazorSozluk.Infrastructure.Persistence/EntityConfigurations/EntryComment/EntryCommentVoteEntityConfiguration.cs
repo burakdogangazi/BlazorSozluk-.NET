@@ -20,7 +20,8 @@ namespace BlazorSozluk.Infrastructure.Persistence.EntityConfigurations.EntryComm
 
             builder.HasOne(i => i.EntryComment)
                 .WithMany(i => i.EntryCommentVotes)
-                .HasForeignKey(i => i.EntryCommentId);
+                .HasForeignKey(i => i.EntryCommentId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

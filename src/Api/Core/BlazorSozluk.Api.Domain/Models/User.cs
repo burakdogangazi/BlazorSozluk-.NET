@@ -8,7 +8,7 @@ namespace BlazorSozluk.Api.Domain.Models
 {
     public class User:BaseEntity
     {
-        public int FirstName { get; set; }
+        public string FirstName { get; set; }
 
         public string LastName { get; set; }
 

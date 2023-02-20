@@ -1,4 +1,5 @@
 ﻿using BlazorSozluk.Api.Domain.Models;
+using Bogus.DataSets;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,11 @@ namespace BlazorSozluk.Infrastructure.Persistence.Context
     public class BlazorSozlukContext : DbContext
     {
         public const string DEFAULT_SCHEMA = "dbo";
+
+        public BlazorSozlukContext()
+        {
+
+        }
 
         public BlazorSozlukContext(DbContextOptions options) : base(options)
         {
@@ -34,6 +40,19 @@ namespace BlazorSozluk.Infrastructure.Persistence.Context
         public DbSet<EmailConfirmation> EmailConfirmations { get; set; }
 
         public DbSet<EntryVote> EntryVotes { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var connStr = "Data Source=BURAKDOGAN\\SQLEXPRESS;Initial Catalog=BlazorSozluk;Integrated Security=True";
+            if (!optionsBuilder.IsConfigured)
+            {
+
+                optionsBuilder.UseSqlServer(connStr, opt =>
+                {
+                    opt.EnableRetryOnFailure();
+                });
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

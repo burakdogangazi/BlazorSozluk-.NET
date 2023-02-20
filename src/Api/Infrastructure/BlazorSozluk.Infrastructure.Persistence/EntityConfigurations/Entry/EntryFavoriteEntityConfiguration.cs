@@ -20,11 +20,13 @@ namespace BlazorSozluk.Infrastructure.Persistence.EntityConfigurations.Entry
 
             builder.HasOne(i => i.Entry)
                 .WithMany(i => i.EntryFavorites)
-                .HasForeignKey(i => i.EntryId);
+                .HasForeignKey(i => i.EntryId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(i => i.CreatedUser)
                 .WithMany(i => i.EntryFavorites)
-                .HasForeignKey(i => i.CreatedById);
+                .HasForeignKey(i => i.CreatedById)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 
